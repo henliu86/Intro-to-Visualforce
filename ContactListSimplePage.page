@@ -1,0 +1,24 @@
+<apex:page controller="ContactListSimpleController">
+    <apex:image value="{!$Resource.banner2}" width="100%"/>
+    <apex:form >
+        <apex:pageBlock title="Nominate Contacts">
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save}"/>
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockTable value="{!contacts}" var="contact"> <!-- for loop of contact in contacts -->
+                <apex:column value="{!contact.name}"/>
+                <apex:column value="{!contact.accountid}"/>
+                <apex:column value="{!contact.phone}"/>
+                <apex:column headerValue="Email">
+                    <apex:inputField value="{!contact.email}"/>
+                </apex:column>
+                <apex:column headerValue="Nominate">
+                    <apex:inputField value="{!contact.Nominate__c}"/>
+                </apex:column> 
+            </apex:pageBlockTable>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

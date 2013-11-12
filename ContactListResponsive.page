@@ -1,0 +1,93 @@
+<apex:page showHeader="false" controller="ContactListController"> 
+    <link rel="stylesheet" href="{!URLFOR($Resource.bootstrap, '/bootstrap/css/bootstrap.css')}"/>
+    <link rel="stylesheet" href="{!URLFOR($Resource.bootstrap, '/bootstrap/css/bootstrap-responsive.css')}"/>
+    <script src="{!URLFOR($Resource.jQueryZip2,'jquery-1.9.1.js')}"></script>
+    <script type="text/javascript" src="{!URLFOR($Resource.bootstrap, '/bootstrap/js/bootstrap.js')}"></script>
+    <style>
+        label
+        {
+            color: white;
+        }
+        label span
+        {
+            padding: 0px 10px;
+        }
+        .filterInput
+        {
+            margin-top: 10px;
+        }
+        input[type="submit"].btn 
+        {
+            margin-top: 10px;
+        }
+        .mySaveBtn
+        {
+            clear:left;
+            width:40px;
+            margin: 10px auto;
+        }
+        body
+        { 
+            background: url("{!$Resource.background}");
+        }
+        #wrapper
+        {
+            margin: 10px auto;
+            padding:5px;
+            width: 75%;
+            background: rgba(60, 58, 65, 0.5);
+            border-radius: 10px;
+        }
+        .table th
+        {
+            color:white;
+        }
+        .myName
+        {
+            color:white;
+        }
+        .table td, .table th
+        {
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        #myTitle{ color:white; text-align:center; font-size:18px; font-weight:bold;}
+    </style>
+    <div id="wrapper">
+        <div id="myTitle">Nominate Your Customers</div>
+        <apex:form >
+            <!-- actionFunction is for calling controllers method -->
+            <apex:actionFunction action="{!doQuery}" name="apexDoQuery" reRender="myData"/>
+            
+            <!-- Filter Section -->
+            <label class="pull-left"><span>Filter by Last Name:</span><apex:inputText styleClass="filterInput" value="{!searchString}" onKeyup="apexDoQuery()"/></label>
+            <div class="mySaveBtn">
+                <apex:commandButton action="{!save}" value="Save"/>
+            </div>
+            
+            <!-- my Page Block -->
+            <apex:outputPanel id="myData">
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Nominate</th>
+                    </tr>
+                    <apex:repeat value="{!contacts}" var="con"> <!-- con in myContactList -->
+                        <tr>
+                            <td nowrap="nowrap" style="color:white !important;">
+                                <apex:outputField value="{!con.Name}" />
+                            </td>
+                            <td>
+                                <apex:inputField value="{!con.Email}"/>
+                            </td>
+                            <td >
+                                <apex:inputField value="{!con.Nominate__c}"/>
+                            </td>
+                        </tr>   
+                    </apex:repeat>
+                </table>
+            </apex:outputPanel>
+            
+        </apex:form>
+    </div>
+</apex:page>

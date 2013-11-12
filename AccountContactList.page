@@ -1,0 +1,39 @@
+<apex:page standardController="Account" extensions="AccountContactListController">
+    <!--<img src="{!$Resource.banner}"/>-->
+    <apex:form >
+        <!-- actionFunction is for calling controller's method -->
+        <apex:actionFunction action="{!doQuery}" name="apexDoQuery" reRender="myData"/>
+        
+        <!-- Filter Section -->
+        <div style="padding: 10px">
+            <label>Filter by Last Name:&nbsp;<apex:inputText value="{!searchString}" onKeyup="apexDoQuery()"/></label>
+        </div>
+        
+        <!-- my Page Block -->
+        <apex:pageBlock title="Nominate Contacts" id="myData">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save"/>
+            </apex:pageBlockButtons>
+            <apex:pageblockTable value="{!contacts}" var="con"> <!-- con in myContactList -->
+                <apex:column headerValue="Name">
+                    <a href="/{!con.Id}">
+                        <apex:outputField value="{!con.Name}"/>
+                    </a>
+                </apex:column>
+                <apex:column value="{!con.Phone}"/>
+                <apex:column headerValue="Email" >
+                    <apex:inputField value="{!con.Email}"/>
+                </apex:column> 
+                <apex:column headerValue="Nominate" >
+                    <apex:inputField value="{!con.Nominate__c}"/>
+                </apex:column>     
+            </apex:pageblockTable>
+        </apex:pageBlock>
+        
+    </apex:form>
+    
+    <style>
+        .filterDiv{ padding: 10px; }
+        label{ padding: 2px; }
+    </style>
+</apex:page>
